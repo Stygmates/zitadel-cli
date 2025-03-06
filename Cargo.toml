@@ -1,0 +1,23 @@
+[package]
+name = "zitadel-cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = "4.9.0"
+base64 = "0.22.1"
+clap = { version = "4.5.30", features = ["unstable-doc"] }
+dotenvy = "0.15.7"
+log = "0.4.25"
+open = "5.3.2"
+parking_lot = "0.12.3"
+rand = "0.8.5"
+reqwest = { version = "0.12.12", features = ["json"] }
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = { version = "1.0.137", features = ["std"] }
+sha2 = "0.10.8"
+thiserror = "2.0.11"
+tokio = { version = "1.43.0", features = ["macros", "rt", "sync"] }
+tracing = "0.1.41"
+tracing-subscriber = "0.3.19"
+url = "2.5.4"

@@ -1,0 +1,16 @@
+{
+  "name": "ZITADEL EXAMPLE ORG",
+  "admins": [
+    {
+      "human": {
+        "profile": {
+          "givenName": "Dingo",
+          "familyName": "Mouse"
+        },
+        "email": {
+          "email": "dingo@mouse.com"
+        }
+      }
+    }
+  ]
+}

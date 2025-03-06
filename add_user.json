@@ -1,0 +1,33 @@
+{
+    "userId": "d654e6ba-70a3-48ef-a95d-37c8d8a7901a",
+    "username": "minnie-mouse",
+    "profile": {
+        "givenName": "Minnie",
+        "familyName": "Mouse",
+        "nickName": "Mini",
+        "displayName": "Minnie Mouse",
+        "preferredLanguage": "en",
+        "gender": "GENDER_FEMALE"
+    },
+    "email": {
+        "email": "mini@mouse.com",
+        "sendCode": {
+            "urlTemplate": "https://example.com/email/verify?userID={{.UserID}}&code={{.Code}}&orgID={{.OrgID}}"
+        }
+    },
+    "phone": {
+        "phone": "+41791234567",
+        "sendCode": {}
+    },
+    "metadata": [
+        {
+            "key": "my-key",
+            "value": "VGhpcyBpcyBteSB0ZXN0IHZhbHVl"
+        }
+    ],
+    "password": {
+        "password": "Secr3tP4ssw0rd!",
+        "changeRequired": true
+    },
+    "totpSecret": "TJOPWSDYILLHXFV4MLKNNJOWFG7VSDCK"
+}
