@@ -46,11 +46,13 @@ The CLI currently supports the following commands:
 
 - **`add-org`**  
   Adds a new organization. This command checks if the CLI is logged in, then interacts with the Zitadel API.
+  Currently calls [this](https://zitadel.com/docs/apis/resources/org_service_v2/organization-service-add-organization) endpoint
 
 A minimal payload that works can be found in `add_organization.json`.
 
 - **`add-human-user`**  
   Adds a new human user. This command checks if the CLI is logged in, then interacts with the Zitadel API.
+  Currently calls [this](https://zitadel.com/docs/apis/resources/user_service_v2/user-service-add-human-user) endpoint
 
   **Options:**
 
