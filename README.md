@@ -4,13 +4,13 @@ This is a command-line interface (CLI) tool designed to interact with the Zitade
 If you receive an unauthorized response, it is recommended to log in again to refresh your session and regain access.
 
 The CLI doesn't support `x-zitadel-orgid` yet, the organization targeted is the default one.
-No strict type validation on the data is done yet, so be careful with the payloads you provide.
+The required fields and their types are validated, but the actual values haven't been verified yet. For instance, we check if the 'gender' field is a string, but we don't validate whether it's one of the supported values (e.g., GENDER_UNSPECIFIED, GENDER_FEMALE, GENDER_MALE, GENDER_DIVERSE). Please be cautious when providing payloads.
 
 Right now you can authenticate using different flows:
 
-- [Client credentials](#client-credentials-flow)
+- [Client credentials](#client-credentials-flow-for-service-users)
 - [Authorization](#authorization-flow)
-- [Personal access token](#personal-access-token)
+- [Personal access token](#personal-access-token-pat-for-service-users)
 
 ## Installation
 
@@ -63,7 +63,7 @@ A minimal payload that works can be found in `add_user.json`.
 
 ## Environment Variables
 
-### Client credentials flow (service users)
+### Client credentials flow for service users
 
 - `ISSUER` - The URL of the Zitadel instance.
 
@@ -85,7 +85,7 @@ Ensure you set up the following environment variables:
 
 - `SCOPES` - The scopes required. `urn:zitadel:iam:org:project:id:zitadel:aud` is necessary for managing resources. See [Scopes Documentation](https://zitadel.com/docs/apis/openidoauth/scopes) for more information.
 
-### Personal Access Token PAT(service users)
+### Personal Access Token PAT for service users
 
 - `ISSUER` - The URL of the Zitadel instance.
 
