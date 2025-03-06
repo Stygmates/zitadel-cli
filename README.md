@@ -7,9 +7,10 @@ The CLI doesn't support `x-zitadel-orgid` yet, the organization targeted is the 
 No strict type validation on the data is done yet, so be careful with the payloads you provide.
 
 Right now you can authenticate using different flows:
+
 - [Client credentials](#client-credentials-flow)
 - [Authorization](#authorization-flow)
-- [Personal access token](#personal-access-token) 
+- [Personal access token](#personal-access-token)
 
 ## Installation
 
@@ -34,7 +35,7 @@ cargo run <COMMAND>
 The CLI currently supports the following commands:
 
 - **`login`**  
-  Logs the user in and writes the access token to a file. The default is flow is th `Authorization flow`
+  Logs the user in and writes the access token to a file. The default is flow is the `Authorization flow`
 
   **Options:**
 
@@ -62,7 +63,6 @@ A minimal payload that works can be found in `add_user.json`.
 
 ## Environment Variables
 
-
 ### Client credentials flow (service users)
 
 - `ISSUER` - The URL of the Zitadel instance.
@@ -85,7 +85,7 @@ Ensure you set up the following environment variables:
 
 - `SCOPES` - The scopes required. `urn:zitadel:iam:org:project:id:zitadel:aud` is necessary for managing resources. See [Scopes Documentation](https://zitadel.com/docs/apis/openidoauth/scopes) for more information.
 
-### Personal Access Token PAT(service users) 
+### Personal Access Token PAT(service users)
 
 - `ISSUER` - The URL of the Zitadel instance.
 
