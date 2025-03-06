@@ -109,3 +109,4 @@ Ensure you set up the following environment variables:
 ### Bonus:
 
 - [ ] Enforce more strict type validations (e.g., < 200 characters/fields with fixed values)
+- [ ] Add option to interact with the grpc APIs
