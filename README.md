@@ -20,7 +20,7 @@ To get started, follow these steps:
    If you haven't already, install Rust and Cargo from [here](https://rustup.rs/).
 
 2. **Set up the environment variables**  
-   Follow the instructions in the [environment variables](#environment-variables) section to configure your environment.
+   Define the [environment variables](#environment-variables) (possibly in a `.env` file) to configure your environment.
 
 ## Usage
 
@@ -101,6 +101,8 @@ Ensure you set up the following environment variables:
 - [ ] Create Applications (5 client types)
 - [x] Create users (human)
 - [ ] Add identity provider (all templates)
+
+- [ ] Add more unit tests
 
 ### Bonus:
 
