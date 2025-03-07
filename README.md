@@ -67,6 +67,8 @@ A minimal payload that works can be found in `add_user.json`.
 
 ### Client credentials flow for service users
 
+- `CONFIG_FILE_PATH` - The path where the login informations are saved
+
 - `ISSUER` - The URL of the Zitadel instance.
 
 - `CLIENT_ID` - Your client ID for authentication
@@ -79,6 +81,8 @@ A minimal payload that works can be found in `add_user.json`.
 
 Ensure you set up the following environment variables:
 
+- `CONFIG_FILE_PATH` - The path where the login informations are saved
+
 - `ISSUER` - The URL of the Zitadel instance.
 
 - `CLIENT_ID` - Your client ID for authentication.
@@ -88,6 +92,8 @@ Ensure you set up the following environment variables:
 - `SCOPES` - The scopes required. `urn:zitadel:iam:org:project:id:zitadel:aud` is necessary for managing resources. See [Scopes Documentation](https://zitadel.com/docs/apis/openidoauth/scopes) for more information.
 
 ### Personal Access Token PAT for service users
+
+- `CONFIG_FILE_PATH` - The path where the login informations are saved
 
 - `ISSUER` - The URL of the Zitadel instance.
 
