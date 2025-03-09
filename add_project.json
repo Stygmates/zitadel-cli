@@ -1,0 +1,7 @@
+{
+  "name": "MyProject",
+  "projectRoleAssertion": true,
+  "projectRoleCheck": true,
+  "hasProjectCheck": true,
+  "privateLabelingSetting": "PRIVATE_LABELING_SETTING_UNSPECIFIED"
+}

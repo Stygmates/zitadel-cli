@@ -17,8 +17,7 @@ pub(crate) async fn add_ressource<T: DeserializeOwned + Serialize>(
         Ok(ressource) => {
             match add_ressource_api_call(&token.access_token, &issuer, endpoint, ressource).await {
                 Ok(response) => match response.status() {
-                    StatusCode::OK => Ok(()),
-                    StatusCode::CREATED => Ok(()),
+                    StatusCode::CREATED | StatusCode::OK => Ok(()),
                     StatusCode::UNAUTHORIZED => Err(ZitadelCLIError::ReqwestResponse(format!(
                         "Invalid token or unauthorized access, please log in again: {}",
                         response.text().await?,

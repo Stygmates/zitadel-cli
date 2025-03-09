@@ -3,8 +3,8 @@ use cli_parser::{Cli, Commands};
 use commands::add::add_ressource;
 use commands::login::load_access_token;
 use commands::logout;
-use payloads::organization::NewOrganization;
 use payloads::user::NewHumanUser;
+use payloads::{organization::NewOrganization, project::NewProject};
 use tracing::{error, info};
 
 mod cli_parser;
@@ -71,6 +71,26 @@ async fn main() -> std::io::Result<()> {
                         }
                         Err(error) => {
                             error! {"Failed to create human user: {error}"};
+                        }
+                    }
+                }
+                Err(error) => {
+                    error! {"Please try to log in again: {error}"};
+                }
+            }
+        }
+        Commands::AddProject { file_path } => {
+            let token = load_access_token();
+            match token {
+                Ok(token) => {
+                    match add_ressource::<NewProject>(token, "/management/v1/projects", file_path)
+                        .await
+                    {
+                        Ok(()) => {
+                            info! {"Project created successfully"};
+                        }
+                        Err(error) => {
+                            error! {"Failed to create project: {error}"};
                         }
                     }
                 }

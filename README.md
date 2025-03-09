@@ -60,6 +60,16 @@ A minimal payload that works can be found in `add_organization.json`.
 
 A minimal payload that works can be found in `add_user.json`.
 
+- **`add-project`**  
+  Adds a new project. This command checks if the CLI is logged in, then interacts with the Zitadel API.
+  Currently calls [this](https://zitadel.com/docs/apis/resources/mgmt/management-service-add-project) endpoint
+
+  **Options:**
+
+  - `--file-path <path>` - Specifies the path to the JSON file containing the new organization's details.
+
+A minimal payload that works can be found in `add_project.json`.
+
 - **`help`**  
   Displays all available commands and options.
 
@@ -105,7 +115,7 @@ Ensure you set up the following environment variables:
 
 - [x] Authentication of service accounts via CLI (also PAT ok)
 - [x] Create Organizations
-- [ ] Create Projects
+- [x] Create Projects
 - [ ] Create Applications (5 client types)
 - [x] Create users (human)
 - [ ] Add identity provider (all templates)
@@ -116,3 +126,21 @@ Ensure you set up the following environment variables:
 
 - [ ] Enforce more strict type validations (e.g., < 200 characters/fields with fixed values)
 - [ ] Add option to interact with the grpc APIs
+
+### Questions:
+
+- Where is the projects endpoint located? I could only find the endpoint for the V1
+
+- The payload displayed at for creating a human user doesn't seem to work out of the box (https://zitadel.com/docs/apis/resources/user_service_v2/user-service-add-human-user):
+
+```
+2025-03-06T21:20:35.912734Z ERROR zitadel_cli: Failed to create human user: Invalid response: An unexpected error occured: {"code":3,"message":"proto: (line 1:109): error parsing \"orgDomain\", oneof zitadel.object.v2.Organization.org is already set"}
+```
+
+- The payload displayed at for creating an organization doesn't seem to work out of the box (https://zitadel.com/docs/apis/resources/org_service_v2/organization-service-add-organization):
+
+```
+2025-03-06T21:18:14.377730Z ERROR zitadel_cli: Failed to create organization: Invalid response: An unexpected error occured: {"code":3,"message":"proto: (line 1:48): error parsing \"human\", oneof zitadel.org.v2.AddOrganizationRequest.Admin.user_type is already set"}
+```
+
+- The create project API endpoint returns a status code 200, is it done on purpose? The V1: https://zitadel.com/docs/apis/resources/mgmt/management-service-add-project

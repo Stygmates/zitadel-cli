@@ -37,6 +37,12 @@ pub enum Commands {
         #[arg(short, long, required(true))]
         file_path: PathBuf,
     },
+    /// Adds a project
+    AddProject {
+        /// The path of the file describing a human user, see [the Zitadel documentation](https://zitadel.com/docs/apis/resources/mgmt/management-service-add-project)
+        #[arg(short, long, required(true))]
+        file_path: PathBuf,
+    },
     /// Logs the user out
     Logout {},
 }
