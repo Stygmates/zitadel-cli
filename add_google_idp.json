@@ -1,0 +1,13 @@
+{
+  "name": "Google",
+  "clientId": "client-id",
+  "clientSecret": "secret",
+  "scopes": ["openid", "profile", "email"],
+  "providerOptions": {
+    "isLinkingAllowed": true,
+    "isCreationAllowed": true,
+    "isAutoCreation": true,
+    "isAutoUpdate": true,
+    "autoLinking": "AUTO_LINKING_OPTION_UNSPECIFIED"
+  }
+}

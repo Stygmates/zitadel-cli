@@ -3,6 +3,7 @@ use cli_parser::{Cli, Commands};
 use commands::add::add_ressource;
 use commands::login::load_access_token;
 use commands::logout;
+use payloads::idp::google::NewGoogleIdp;
 use payloads::user::NewHumanUser;
 use payloads::{organization::NewOrganization, project::NewProject};
 use tracing::{error, info};
@@ -91,6 +92,33 @@ async fn main() -> std::io::Result<()> {
                         }
                         Err(error) => {
                             error! {"Failed to create project: {error}"};
+                        }
+                    }
+                }
+                Err(error) => {
+                    error! {"Please try to log in again: {error}"};
+                }
+            }
+        }
+        Commands::AddIdp { command } => {
+            let token = load_access_token();
+            match token {
+                Ok(token) => {
+                    let ressource = match command {
+                        cli_parser::IdpCommand::Google { file_path } => {
+                            add_ressource::<NewGoogleIdp>(
+                                token,
+                                "/management/v1/idps/google",
+                                file_path,
+                            )
+                        }
+                    };
+                    match ressource.await {
+                        Ok(()) => {
+                            info! {"Identity provider created successfully"};
+                        }
+                        Err(error) => {
+                            error! {"Failed to create identity provider: {error}"};
                         }
                     }
                 }

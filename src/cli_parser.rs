@@ -6,6 +6,16 @@ use clap::{Parser, Subcommand};
 
 use crate::commands::login::flows::Flow;
 
+#[derive(Subcommand)]
+/// Add an identity provider
+pub enum IdpCommand {
+    Google {
+        /// The path of the file describing a google IdP, see [the Zitadel documentation](https://zitadel.com/docs/apis/resources/mgmt/management-service-add-google-provider)
+        #[arg(short, long, required(true))]
+        file_path: PathBuf,
+    },
+}
+
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
 /// The Zitadel CLI is a command line interface to interact with the Zitadel API to manage different resources
@@ -42,6 +52,11 @@ pub enum Commands {
         /// The path of the file describing a human user, see [the Zitadel documentation](https://zitadel.com/docs/apis/resources/mgmt/management-service-add-project)
         #[arg(short, long, required(true))]
         file_path: PathBuf,
+    },
+
+    AddIdp {
+        #[command(subcommand)]
+        command: IdpCommand,
     },
     /// Logs the user out
     Logout {},

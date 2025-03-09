@@ -70,6 +70,20 @@ A minimal payload that works can be found in `add_user.json`.
 
 A minimal payload that works can be found in `add_project.json`.
 
+- **`add-idp <provider>`**  
+  Adds a new identity provider. This command checks if the CLI is logged in, then interacts with the Zitadel API.
+  The different providers are described in [here](https://zitadel.com/docs/apis/resources/mgmt/identity-providers)
+
+  The currently supported providers are:
+
+  - google
+
+  **Options:**
+
+  - `--file-path <path>` - Specifies the path to the JSON file containing the new organization's details.
+
+A minimal payload that works can be found in `add_idp_google.json`.
+
 - **`help`**  
   Displays all available commands and options.
 
@@ -118,8 +132,8 @@ Ensure you set up the following environment variables:
 - [x] Create Projects
 - [ ] Create Applications (5 client types)
 - [x] Create users (human)
-- [ ] Add identity provider (all templates)
-
+- [🛠️] Add identity provider (all templates)
+  - [x] Google
 - [ ] Add more unit tests
 
 ### Bonus:

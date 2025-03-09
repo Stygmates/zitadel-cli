@@ -1,3 +1,4 @@
+pub mod idp;
 pub mod organization;
 pub mod project;
 pub mod user;

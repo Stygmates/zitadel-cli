@@ -27,3 +27,11 @@ cargo run add-human-user --file-path add_user.json
 ```sh
 cargo run add-org --file-path add_organization.json
 ```
+
+## Add an identity provider
+
+### Google
+
+```sh
+cargo run add-idp google --file-path add_google_idp.json
+```
