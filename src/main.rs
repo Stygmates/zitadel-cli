@@ -45,71 +45,40 @@ async fn main() -> std::io::Result<()> {
         Commands::Add { ressource } => {
             let token = load_access_token();
             match token {
-                Ok(token) => match ressource {
-                    cli_parser::Ressource::Org { file_path } => {
-                        match add_resource::<NewOrganization>(
-                            token,
-                            "/v2/organizations",
-                            &file_path,
-                        )
-                        .await
-                        {
-                            Ok(()) => {
-                                info! {"Organization created successfully"};
-                            }
-                            Err(error) => {
-                                error! {"Failed to create organization: {error}"};
-                            }
+                Ok(token) => {
+                    let api_call = match ressource {
+                        cli_parser::Ressource::Org { file_path } => {
+                            add_resource::<NewOrganization>(token, "/v2/organizations", &file_path)
+                                .await
                         }
-                    }
-                    cli_parser::Ressource::HumanUser { file_path } => {
-                        match add_resource::<NewHumanUser>(token, "/v2/users/human", file_path)
-                            .await
-                        {
-                            Ok(()) => {
-                                info! {"Human user created successfully"};
-                            }
-                            Err(error) => {
-                                error! {"Failed to create human user: {error}"};
-                            }
+                        cli_parser::Ressource::HumanUser { file_path } => {
+                            add_resource::<NewHumanUser>(token, "/v2/users/human", file_path).await
                         }
-                    }
-                    cli_parser::Ressource::Project { file_path } => {
-                        match add_resource::<NewProject>(
-                            token,
-                            "/management/v1/projects",
-                            file_path,
-                        )
-                        .await
-                        {
-                            Ok(()) => {
-                                info! {"Project created successfully"};
-                            }
-                            Err(error) => {
-                                error! {"Failed to create project: {error}"};
-                            }
+                        cli_parser::Ressource::Project { file_path } => {
+                            add_resource::<NewProject>(token, "/management/v1/projects", file_path)
+                                .await
                         }
-                    }
-                    cli_parser::Ressource::Idp { idp } => {
-                        let api_call = match idp {
+                        cli_parser::Ressource::Idp { idp } => match idp {
                             cli_parser::IdpCommand::Google { file_path } => {
                                 add_resource::<NewGoogleIdp>(
                                     token,
                                     "/management/v1/idps/google",
                                     file_path,
                                 )
+                                .await
                             }
-                        };
-                        match api_call.await {
-                            Ok(()) => {
-                                info! {"Identity provider created successfully"};
-                            }
-                            Err(error) => {
-                                error! {"Failed to create identity provider: {error}"};
-                            }
+                        },
+                    };
+
+                    match api_call {
+                        Ok(_) => {
+                            info! {"Ressource created successfully"}
+                        }
+                        Err(error) => {
+                            error! {"Failed to create ressource: {error}"}
                         }
                     }
-                },
+                }
                 Err(error) => {
                     error! {"Please try to log in again: {error}"};
                 }
