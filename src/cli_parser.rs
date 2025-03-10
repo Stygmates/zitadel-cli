@@ -17,7 +17,7 @@ pub enum IdpCommand {
 }
 
 #[derive(Subcommand)]
-pub enum Ressource {
+pub enum Entity {
     /// Adds an organization
     Org {
         /// The path of the file describing an org, see [the Zitadel documentation](https://zitadel.com/docs/apis/resources/org_service_v2/organization-service-add-organization) for more details
@@ -65,7 +65,7 @@ pub enum Commands {
     },
     Add {
         #[command(subcommand)]
-        ressource: Ressource,
+        entity: Entity,
     },
     /// Logs the user out
     Logout {},

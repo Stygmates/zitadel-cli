@@ -42,23 +42,23 @@ async fn main() -> std::io::Result<()> {
                 }
             },
         },
-        Commands::Add { ressource } => {
+        Commands::Add { entity } => {
             let token = load_access_token();
             match token {
                 Ok(token) => {
-                    let api_call = match ressource {
-                        cli_parser::Ressource::Org { file_path } => {
-                            add_resource::<NewOrganization>(token, "/v2/organizations", &file_path)
+                    let api_call = match entity {
+                        cli_parser::Entity::Org { file_path } => {
+                            add_resource::<NewOrganization>(token, "/v2/organizations", file_path)
                                 .await
                         }
-                        cli_parser::Ressource::HumanUser { file_path } => {
+                        cli_parser::Entity::HumanUser { file_path } => {
                             add_resource::<NewHumanUser>(token, "/v2/users/human", file_path).await
                         }
-                        cli_parser::Ressource::Project { file_path } => {
+                        cli_parser::Entity::Project { file_path } => {
                             add_resource::<NewProject>(token, "/management/v1/projects", file_path)
                                 .await
                         }
-                        cli_parser::Ressource::Idp { idp } => match idp {
+                        cli_parser::Entity::Idp { idp } => match idp {
                             cli_parser::IdpCommand::Google { file_path } => {
                                 add_resource::<NewGoogleIdp>(
                                     token,
@@ -72,10 +72,10 @@ async fn main() -> std::io::Result<()> {
 
                     match api_call {
                         Ok(_) => {
-                            info! {"Ressource created successfully"}
+                            info! {"Entity created successfully"}
                         }
                         Err(error) => {
-                            error! {"Failed to create ressource: {error}"}
+                            error! {"Failed to create entity: {error}"}
                         }
                     }
                 }
