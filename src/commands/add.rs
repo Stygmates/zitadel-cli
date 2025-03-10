@@ -7,7 +7,7 @@ use crate::{error::ZitadelCLIError, payloads::load_from_file};
 
 use super::Token;
 
-pub(crate) async fn add_ressource<T: DeserializeOwned + Serialize>(
+pub(crate) async fn add_resource<T: DeserializeOwned + Serialize>(
     token: Token,
     endpoint: &str,
     ressource_file_path: &Path,
