@@ -1,6 +1,6 @@
 use clap::Parser;
 use cli_parser::{Cli, Commands};
-use commands::add::add_ressource;
+use commands::add::add_entity;
 use commands::login::load_access_token;
 use commands::logout;
 use payloads::idp::google::NewGoogleIdp;
@@ -25,13 +25,13 @@ async fn main() -> std::io::Result<()> {
             match login_result {
                 Ok(_) => (),
                 Err(error) => {
-                    log::info! {"Failed to log in: {error}"};
+                    info! {"Failed to log in: {error}"};
                 }
             }
         }
         Commands::Logout {} => match logout::logout() {
             Ok(()) => {
-                log::info! {"Successfully logged out"}
+                info! {"Successfully logged out"}
             }
             Err(error) => match error.kind() {
                 std::io::ErrorKind::NotFound => {
@@ -42,83 +42,40 @@ async fn main() -> std::io::Result<()> {
                 }
             },
         },
-        Commands::AddOrg { file_path } => {
+        Commands::Add { entity } => {
             let token = load_access_token();
             match token {
                 Ok(token) => {
-                    match add_ressource::<NewOrganization>(token, "/v2/organizations", file_path)
-                        .await
-                    {
-                        Ok(()) => {
-                            info! {"Organization created successfully"};
+                    let api_call = match entity {
+                        cli_parser::Entity::Org { file_path } => {
+                            add_entity::<NewOrganization>(token, "/v2/organizations", file_path)
+                                .await
                         }
-                        Err(error) => {
-                            error! {"Failed to create organization: {error}"};
+                        cli_parser::Entity::HumanUser { file_path } => {
+                            add_entity::<NewHumanUser>(token, "/v2/users/human", file_path).await
                         }
-                    }
-                }
-                Err(error) => {
-                    error! {"Please try to log in again: {error}"};
-                }
-            }
-        }
-        Commands::AddHumanUser { file_path } => {
-            let token = load_access_token();
-            match token {
-                Ok(token) => {
-                    match add_ressource::<NewHumanUser>(token, "/v2/users/human", file_path).await {
-                        Ok(()) => {
-                            info! {"Human user created successfully"};
+                        cli_parser::Entity::Project { file_path } => {
+                            add_entity::<NewProject>(token, "/management/v1/projects", file_path)
+                                .await
                         }
-                        Err(error) => {
-                            error! {"Failed to create human user: {error}"};
-                        }
-                    }
-                }
-                Err(error) => {
-                    error! {"Please try to log in again: {error}"};
-                }
-            }
-        }
-        Commands::AddProject { file_path } => {
-            let token = load_access_token();
-            match token {
-                Ok(token) => {
-                    match add_ressource::<NewProject>(token, "/management/v1/projects", file_path)
-                        .await
-                    {
-                        Ok(()) => {
-                            info! {"Project created successfully"};
-                        }
-                        Err(error) => {
-                            error! {"Failed to create project: {error}"};
-                        }
-                    }
-                }
-                Err(error) => {
-                    error! {"Please try to log in again: {error}"};
-                }
-            }
-        }
-        Commands::AddIdp { command } => {
-            let token = load_access_token();
-            match token {
-                Ok(token) => {
-                    let ressource = match command {
-                        cli_parser::IdpCommand::Google { file_path } => {
-                            add_ressource::<NewGoogleIdp>(
-                                token,
-                                "/management/v1/idps/google",
-                                file_path,
-                            )
-                        }
+                        cli_parser::Entity::Idp { idp } => match idp {
+                            cli_parser::IdpCommand::Google { file_path } => {
+                                add_entity::<NewGoogleIdp>(
+                                    token,
+                                    "/management/v1/idps/google",
+                                    file_path,
+                                )
+                                .await
+                            }
+                        },
                     };
-                    match ressource.await {
-                        Ok(()) => {
-                            info! {"Identity provider created successfully"};
+
+                    match api_call {
+                        Ok(_) => {
+                            info! {"Entity created successfully"}
                         }
                         Err(error) => {
-                            error! {"Failed to create identity provider: {error}"};
+                            error! {"Failed to create entity: {error}"}
                         }
                     }
                 }

@@ -44,45 +44,37 @@ The CLI currently supports the following commands:
 - **`logout`**  
   Logs the user out by removing the access token file.
 
-- **`add-org`**  
-  Adds a new organization. This command checks if the CLI is logged in, then interacts with the Zitadel API.
-  Currently calls [this](https://zitadel.com/docs/apis/resources/org_service_v2/organization-service-add-organization) endpoint
+- **`add <entity> --file-path <path>`**
 
-A minimal payload that works can be found in `add_organization.json`.
+  Adds new entities to the system. This command checks if the CLI is logged in, then interacts with the Zitadel API.
 
-- **`add-human-user`**  
-  Adds a new human user. This command checks if the CLI is logged in, then interacts with the Zitadel API.
-  Currently calls [this](https://zitadel.com/docs/apis/resources/user_service_v2/user-service-add-human-user) endpoint
+  Example payloads can be found in the `payloads` folder.
 
-  **Options:**
+  `--file-path <path>` - Is mandatory and specifies the path to the JSON file containing the new organization's details.
 
-  - `--file-path <path>` - Specifies the path to the JSON file containing the new organization's details.
+  - `org`
 
-A minimal payload that works can be found in `add_user.json`.
+    Adds a new organization.
+    Currently calls [this](https://zitadel.com/docs/apis/resources/org_service_v2/organization-service-add-organization) endpoint.
 
-- **`add-project`**  
-  Adds a new project. This command checks if the CLI is logged in, then interacts with the Zitadel API.
-  Currently calls [this](https://zitadel.com/docs/apis/resources/mgmt/management-service-add-project) endpoint
+  - `human-user`
 
-  **Options:**
+    Adds a new human user.
+    Currently calls [this](https://zitadel.com/docs/apis/resources/user_service_v2/user-service-add-human-user) endpoint
 
-  - `--file-path <path>` - Specifies the path to the JSON file containing the new organization's details.
+  - `project`
 
-A minimal payload that works can be found in `add_project.json`.
+    Adds a new project.
+    Currently calls [this](https://zitadel.com/docs/apis/resources/mgmt/management-service-add-project) endpoint.
 
-- **`add-idp <provider>`**  
-  Adds a new identity provider. This command checks if the CLI is logged in, then interacts with the Zitadel API.
-  The different providers are described in [here](https://zitadel.com/docs/apis/resources/mgmt/identity-providers)
+  - `idp`
 
-  The currently supported providers are:
+    Adds a new identity provider.
+    The different providers are described in [here](https://zitadel.com/docs/apis/resources/mgmt/identity-providers).
 
-  - google
+    The currently supported providers are:
 
-  **Options:**
-
-  - `--file-path <path>` - Specifies the path to the JSON file containing the new organization's details.
-
-A minimal payload that works can be found in `add_idp_google.json`.
+    - google
 
 - **`help`**  
   Displays all available commands and options.

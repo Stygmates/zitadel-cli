@@ -26,7 +26,7 @@ mod tests {
     #[test]
     /// TODO: Compare the content of the user loaded from the file with the expected user
     fn test_load_from_file() {
-        let path = Path::new("add_user.json");
+        let path = Path::new("examples/add_user.json");
         load_from_file::<NewHumanUser>(path).unwrap();
     }
 }

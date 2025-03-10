@@ -16,6 +16,34 @@ pub enum IdpCommand {
     },
 }
 
+#[derive(Subcommand)]
+pub enum Entity {
+    /// Adds an organization
+    Org {
+        /// The path of the file describing an org, see [the Zitadel documentation](https://zitadel.com/docs/apis/resources/org_service_v2/organization-service-add-organization) for more details
+        #[arg(short, long, required(true))]
+        file_path: PathBuf,
+    },
+    /// Adds a human user
+    HumanUser {
+        /// The path of the file describing a human user, see [the Zitadel documentation](https://zitadel.com/docs/apis/resources/user_service_v2/user-service-add-human-user) for more details
+        #[arg(short, long, required(true))]
+        file_path: PathBuf,
+    },
+    /// Adds a project
+    Project {
+        /// The path of the file describing a project, see [the Zitadel documentation](https://zitadel.com/docs/apis/resources/mgmt/management-service-add-project)
+        #[arg(short, long, required(true))]
+        file_path: PathBuf,
+    },
+    /// Adds an identity provider
+    Idp {
+        /// The idp to add
+        #[command(subcommand)]
+        idp: IdpCommand,
+    },
+}
+
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
 /// The Zitadel CLI is a command line interface to interact with the Zitadel API to manage different resources
@@ -35,28 +63,9 @@ pub enum Commands {
         #[arg(short, long, value_enum, default_value = "client-credentials")]
         flow: Flow,
     },
-    /// Adds an organization
-    AddOrg {
-        /// The path of the file describing an org, see [the Zitadel documentation](https://zitadel.com/docs/apis/resources/org_service_v2/organization-service-add-organization) for more details
-        #[arg(short, long, required(true))]
-        file_path: PathBuf,
-    },
-    /// Adds a human user
-    AddHumanUser {
-        /// The path of the file describing a human user, see [the Zitadel documentation](https://zitadel.com/docs/apis/resources/user_service_v2/user-service-add-human-user) for more details
-        #[arg(short, long, required(true))]
-        file_path: PathBuf,
-    },
-    /// Adds a project
-    AddProject {
-        /// The path of the file describing a human user, see [the Zitadel documentation](https://zitadel.com/docs/apis/resources/mgmt/management-service-add-project)
-        #[arg(short, long, required(true))]
-        file_path: PathBuf,
-    },
-
-    AddIdp {
+    Add {
         #[command(subcommand)]
-        command: IdpCommand,
+        entity: Entity,
     },
     /// Logs the user out
     Logout {},
