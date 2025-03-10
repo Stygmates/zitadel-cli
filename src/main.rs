@@ -1,6 +1,6 @@
 use clap::Parser;
 use cli_parser::{Cli, Commands};
-use commands::add::add_resource;
+use commands::add::add_entity;
 use commands::login::load_access_token;
 use commands::logout;
 use payloads::idp::google::NewGoogleIdp;
@@ -48,19 +48,19 @@ async fn main() -> std::io::Result<()> {
                 Ok(token) => {
                     let api_call = match entity {
                         cli_parser::Entity::Org { file_path } => {
-                            add_resource::<NewOrganization>(token, "/v2/organizations", file_path)
+                            add_entity::<NewOrganization>(token, "/v2/organizations", file_path)
                                 .await
                         }
                         cli_parser::Entity::HumanUser { file_path } => {
-                            add_resource::<NewHumanUser>(token, "/v2/users/human", file_path).await
+                            add_entity::<NewHumanUser>(token, "/v2/users/human", file_path).await
                         }
                         cli_parser::Entity::Project { file_path } => {
-                            add_resource::<NewProject>(token, "/management/v1/projects", file_path)
+                            add_entity::<NewProject>(token, "/management/v1/projects", file_path)
                                 .await
                         }
                         cli_parser::Entity::Idp { idp } => match idp {
                             cli_parser::IdpCommand::Google { file_path } => {
-                                add_resource::<NewGoogleIdp>(
+                                add_entity::<NewGoogleIdp>(
                                     token,
                                     "/management/v1/idps/google",
                                     file_path,
