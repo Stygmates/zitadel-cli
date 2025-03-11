@@ -16,7 +16,7 @@ Right now you can authenticate using different flows:
 
 To get started, follow these steps:
 
-1. **Install Rust and Cargo**  
+1. **Install Rust and Cargo**
    If you haven't already, install Rust and Cargo from [here](https://rustup.rs/).
 
 2. **Set up the environment variables**  
@@ -44,37 +44,64 @@ The CLI currently supports the following commands:
 - **`logout`**  
   Logs the user out by removing the access token file.
 
-- **`add <entity> --file-path <path>`**
+- **`org`**
 
-  Adds new entities to the system. This command checks if the CLI is logged in, then interacts with the Zitadel API.
+  All the commands available to interact with the organization API. This command checks if the CLI is logged in, then interacts with the Zitadel API.
 
-  Example payloads can be found in the `payloads` folder.
+  - **_add_**
+    Adds a new organization. This command checks if the CLI is logged in, then interacts with the Zitadel API.
 
-  `--file-path <path>` - Is mandatory and specifies the path to the JSON file containing the new organization's details.
+  Currently calls [this](https://zitadel.com/docs/apis/resources/org_service_v2/organization-service-add-organization) endpoint.
 
-  - `org`
+  A minimal payload that works can be found in `add_organization.json`.
 
-    Adds a new organization.
-    Currently calls [this](https://zitadel.com/docs/apis/resources/org_service_v2/organization-service-add-organization) endpoint.
+- **`human-user`**
 
-  - `human-user`
+  All the commands available to interact with the human user API. This command checks if the CLI is logged in, then interacts with the Zitadel API.
 
-    Adds a new human user.
-    Currently calls [this](https://zitadel.com/docs/apis/resources/user_service_v2/user-service-add-human-user) endpoint
+  - **_add_**
 
-  - `project`
+    Adds a new human user
+    Currently calls [this](https://zitadel.com/docs/apis/resources/user_service_v2/user-service-add-human-user) endpoint.
 
-    Adds a new project.
+    \***\*Options:\*\***
+
+    - `--file-path <path>` - Specifies the path to the JSON file containing the new human user's details.
+
+    A minimal payload that works can be found in `add_user.json`.
+
+- **`project`**
+
+  All the commands available to interact with the human user API. This command checks if the CLI is logged in, then interacts with the Zitadel API.
+
+  - **_add_**
+
+    Adds a new project. This command checks if the CLI is logged in, then interacts with the Zitadel API.
     Currently calls [this](https://zitadel.com/docs/apis/resources/mgmt/management-service-add-project) endpoint.
 
-  - `idp`
+    **Options:**
 
-    Adds a new identity provider.
-    The different providers are described in [here](https://zitadel.com/docs/apis/resources/mgmt/identity-providers).
+    - `--file-path <path>` - Specifies the path to the JSON file containing the new project's details.
+
+    A minimal payload that works can be found in `add_project.json`.
+
+- **`idp `**
+
+  - **_add \<provider\>_**
+
+    Adds a new identity provider. This command checks if the CLI is logged in, then interacts with the Zitadel API.
+
+    **Options:**
+
+    - `--file-path <path>` - Specifies the path to the JSON file containing the new organization's details.
+
+    The different providers are described in [here](https://zitadel.com/docs/apis/resources/mgmt/identity-providers)
 
     The currently supported providers are:
 
     - google
+
+    A minimal payload that works can be found in `add_idp_google.json`.
 
 - **`help`**  
   Displays all available commands and options.
@@ -150,3 +177,5 @@ Ensure you set up the following environment variables:
 ```
 
 - The create project API endpoint returns a status code 200, is it done on purpose? The V1: https://zitadel.com/docs/apis/resources/mgmt/management-service-add-project
+
+- Atleast for the add idp and add human user commands, a location header is not returned, I don't know if it's done on purpose or not

@@ -19,19 +19,19 @@ cargo run logout
 ## Add a human user
 
 ```sh
-cargo run add human-user --file-path examples/add_user.json
+cargo run human-user add --file-path examples/add_user.json
 ```
 
 ## Add an organization (Service users can't create orgs so it won't work if you logged in using PAT/client credentials)
 
 ```sh
-cargo run add org --file-path examples/add_organization.json
+cargo run org add  --file-path examples/add_organization.json
 ```
 
 ## Add a project
 
 ```sh
-cargo run add project --file-path examples/add_project.json
+cargo run project add --file-path examples/add_project.json
 ```
 
 ## Add an identity provider
@@ -39,5 +39,5 @@ cargo run add project --file-path examples/add_project.json
 ### Google
 
 ```sh
-cargo run add idp google --file-path examples/add_google_idp.json
+cargo run idp add google --file-path examples/add_google_idp.json
 ```
